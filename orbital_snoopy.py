@@ -79,5 +79,5 @@ def porkchop_2041_transfer():
     return (
         _pk.planet.jpl_lp('earth'),
         orbit_2018_av2_pk(),
-        (_pk.epoch_from_string('2041-03-01 00:00:00'), 1.0, 90.1),
-        (_pk.epoch_from_string('2041-11-01 00:00:00'), 1.0, 90.1))
+        (_pk.epoch_from_string('2041-03-01 00:00:00'), 1.0, 62.1),
+        (_pk.epoch_from_string('2041-11-01 00:00:00'), 1.0, 62.1))
