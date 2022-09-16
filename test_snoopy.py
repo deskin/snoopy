@@ -1,3 +1,6 @@
+# Copyright 2022 Deskin Miller
+# Licensed to you under the MIT License. See COPYING for details
+
 import pytest
 from math import isclose
 
