@@ -1,31 +1,5 @@
 # Copyright 2022 Deskin Miller
-# Licensed to you under the MIT License. See COPYING for details
-
-def OrbitalPy():
-    import orbital as _orb
-    from scipy.constants import kilo as _kilo
-    import astropy.time as _astrotime
-
-    sol = _orb.bodies.Body(
-            mass=_orb.constants.sun_mass,
-            mu=_orb.constants.solar_mass_parameter,
-            mean_radius=_orb.constants.sun_radius_equatorial,
-            equatorial_radius=_orb.constants.sun_radius_equatorial,
-            polar_radius=_orb.constants.sun_radius_equatorial,
-            apoapsis_names='aphelion',
-            periapsis_names='perihelion',
-            plot_color='#d0d010')
-
-    def earth_orbit_2017():
-        r = _orb.Position(x=-5.028580283544673e7, y=-1.422272856162977e8, z=-1.550277271285653e4)
-        r = r * _kilo
-        v = _orb.Velocity(x=2.758282089460933e1, y=-1.005988238736911e1, z=4.542609417019783e-4)
-        v = v * _kilo
-        t = _astrotime.Time(2457905.5, format='jd', scale='tdb')
-
-        o = _orb.elements.KeplerianElements.from_state_vector(r=r, v=v, body=sol, ref_epoch=t)
-
-        return o
+# Licensed under the MIT License. See COPYING for details
 
 import pykep as _pk
 
@@ -63,13 +37,13 @@ def porkchop(o1, o2, t_begin_range, t_end_range):
             # destination body at arrival
             r1, v1 = o1.eph(t1)
             r2, v2 = o2.eph(t2)
-            
+
             l = _pk.lambert_problem(r1=r1, r2=r2, tof=dt, mu=_pk.MU_SUN, max_revs = 1)
             # vb beginning velocity on transfer orbit
             # ve end velocity on transfer orbit
             vb = l.get_v1()[0]
             ve = l.get_v2()[0]
-            
+
             # dv1 delta-V maneuver to transfer ignoring originating body gravity
             # dv2 delta-V maneuver to match destination orbit
             dv1 = norm(v1, vb)
