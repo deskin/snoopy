@@ -50,18 +50,28 @@ def porkchop(o1, o2, t_begin_range, t_end_range):
     out = []
     i = 0.0
     while i < t_begin_range[2]:
+        # t1 transfer departure date
         t1 = _pk.epoch(t_begin_range[0].mjd2000 + i)
         outrow = []
         out.append((t1, outrow))
         j = 0.0
         while j < t_end_range[2]:
+            # t2 transfer arrival date
             t2 = _pk.epoch(t_end_range[0].mjd2000 + j)
             dt = (t2.jd - t1.jd) * _pk.DAY2SEC
+            # Calculate ephemeris for originating body at departure and
+            # destination body at arrival
             r1, v1 = o1.eph(t1)
             r2, v2 = o2.eph(t2)
+            
             l = _pk.lambert_problem(r1=r1, r2=r2, tof=dt, mu=_pk.MU_SUN, max_revs = 1)
+            # vb beginning velocity on transfer orbit
+            # ve end velocity on transfer orbit
             vb = l.get_v1()[0]
             ve = l.get_v2()[0]
+            
+            # dv1 delta-V maneuver to transfer ignoring originating body gravity
+            # dv2 delta-V maneuver to match destination orbit
             dv1 = norm(v1, vb)
             dv2 = norm(v2, ve)
             outrow.append((t2, dt, dv1 + dv2, dv1, dv2))
