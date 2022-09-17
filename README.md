@@ -4,10 +4,10 @@ September 2022
 
 ---
 ## Summary
-By analyzing the orbital elements of 2018 AV2 we approximate the next closest Earth approach to be 2041 September 1 (+/- 1 day). We find an approximate Hohmann transfer window open between 2041 March 1 -- 2041 May 1 and arrival between 2041 November 1 -- 2042 January 1 with Earth-departure "$C_3 < 1 km^2/s^2$" and rendezvous "delta-V $< 500 m/s$". This can be used for evaluating project feasibility, further refinement of orbital dynamics, and initial constraints on spacecraft design.
+By analyzing the orbital elements of 2018 AV2 we approximate the next closest Earth approach to be 2041 September 1 (+/- 1 day). We find an approximate Hohmann transfer window open between 2041 March 1 -- 2041 May 1 and arrival between 2041 November 1 -- 2042 January 1 with Earth-departure $C_3 < 1 km^2/s^2$ and rendezvous delta-V $< 500 m/s$. This can be used for evaluating project feasibility, further refinement of orbital dynamics, and initial constraints on spacecraft design.
 
 ## Background and 2018 AV2 Orbital Elements
-The object designated 2018 AV2 was detected in late 2017. The orbital elements used are obtained from [[1]](#1-pseudo-mpec-for-za9872d--2018-av2):
+The object designated 2018 AV2 was detected in late 2017 near an Earth close approach. The orbital elements used are obtained from [[1]](#1-pseudo-mpec-for-za9872d--2018-av2):
 
 Epoch 2018 Jan 19 00:00:00/ 2458137.5 JD  
 Semimajor axis $a = 1.029147132 +/- 2.1e-6 AU$  
@@ -18,6 +18,8 @@ Longitude of the ascending node $\Omega = 347.610893 +/- 0.0009 deg$
 Mean anomaly $M = 19.215145973 +/- 0.00050 deg$  
 
 Note: we do not use the uncertainty estimates in any calculations here but they are listed for reference.
+
+The orbital period of 2018 AV2 is approximately 381.43 days. The synodic period between 2018 AV2 and Earth is approximately 8660.63 days or 23.711 years.
 
 ## 2041 Close Approach
 Using the Keplerian orbits for Earth and 2018 AV2 in [pykep [2]](#2-pykep) we find the closest approach:
@@ -103,7 +105,9 @@ print((pork[27][0],) + pork[27][1][29])
 ```
 Prints `(2041-Mar-28 00:00:00, 2041-Nov-30 00:00:00, 21340800.0, 480.0902720093982, 192.937420833875, 287.15285117552315)`
 
-The first two elements are the transfer departure and arrival dates. The third element is the transfer time in seconds. The fourth element is the sum of the fifth and sixth; the fifth element is the Earth-escape (departure) velocity. The sixth element is the delta-V at 2018 AV2 arrival needed to match orbits.
+The first two elements are the transfer departure and arrival dates. The third element is the transfer time in seconds. The fourth element is the sum of the fifth and sixth; the fifth element is the Earth-escape (departure) velocity (m/s). The sixth element is the delta-V at 2018 AV2 arrival needed to match orbits (m/s).
+
+The fifth element to the second power gives an upper bound on the characteristic energy or $C_3$ needed for Earth escape. Using this example we obtain $C_3 \le 0.037 km^2/s^2$. Looking through the potential transfers there are many options with both modest $C_3$ and delta-V at 2018 AV2 arrival.
 
 ## Limitations
 This is a preliminary calculation with many known unknowns (and probably orders of magnitude more unknown unknowns). Some of the former:
